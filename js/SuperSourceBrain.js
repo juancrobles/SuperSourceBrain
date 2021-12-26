@@ -27,4 +27,7 @@ SuperSourceBrain.prototype.outputSuperSourceName = function() {
     return this.superSourceName;
 }
 
+
+// this line is necesary for running the tests and 
+// should not be copied to the isadora javascript actor
 module.exports = SuperSourceBrain;
