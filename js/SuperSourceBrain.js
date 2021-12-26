@@ -19,7 +19,10 @@ SuperSourceBrain.prototype.inputBAString = function(ba_string) {
     this.baString = ba_string;
 };
 
-
+/**
+ * Define the output SuperSourceName
+ * @returns the active super source name
+ */
 SuperSourceBrain.prototype.outputSuperSourceName = function() {
     return this.superSourceName;
 }
