@@ -12,6 +12,7 @@ SuperSourceBrain.prototype.odlBAString = "";
 SuperSourceBrain.prototype.superSourceName = "NOSOURCE";
 SuperSourceBrain.prototype.baArray = [];
 SuperSourceBrain.prototype.baCount = 0;
+SuperSourceBrain.prototype.processCount = 0;
 
 
 /**
@@ -25,7 +26,9 @@ SuperSourceBrain.prototype.inputBAString = function(ba_string) {
     }
     
     this.baArray = this.baString.match(/[^\r\n]+/g);
-    this.baCount = this.baArray.length;
+
+    if(this.baArray !== null)
+        this.baCount = this.baArray.length;
 };
 
 /**
@@ -34,6 +37,14 @@ SuperSourceBrain.prototype.inputBAString = function(ba_string) {
 SuperSourceBrain.prototype.inputProcess = function() {
     if(this.baCount == 1)
         this.superSourceName = "1";
+
+    if(this.processCount >= this.baCount) {
+        this.superSourceName = "NOSOURCE";
+        this.baArray = [];
+        this.baCount = 0;
+    }
+
+    this.processCount++;
 }
 
 /**

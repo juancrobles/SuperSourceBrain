@@ -31,7 +31,7 @@ describe("SuperSourceBrain", function(){
     describe("with no panelists id on inputBAString", function () {
         it("should return 'NOSOURCE' on the outputSuperSourceName", function() {
             superSourceBrain.inputBAString("");
-            
+
             expect(superSourceBrain.outputSuperSourceName()).toEqual("NOSOURCE");
         });
     });
@@ -48,6 +48,14 @@ describe("SuperSourceBrain", function(){
             superSourceBrain.inputProcess();
 
             expect(superSourceBrain.outputSuperSourceName()).toEqual("1");
+        });
+
+        it('and triggering for second time the input Process should return "NOSOURCE" on the outputSuperSourceName', () => {
+            superSourceBrain.inputBAString("1234");
+            superSourceBrain.inputProcess();
+            superSourceBrain.inputProcess();
+
+            expect(superSourceBrain.outputSuperSourceName()).toEqual("NOSOURCE");
         });
     });
 });
