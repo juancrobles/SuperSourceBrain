@@ -47,3 +47,13 @@ touch js/SuperSourceBrain.js
 touch spec/SuperSourceBrainSpec.js
 '''
 
+### Create the necesary functionality and correspondig tests
+
+...
+
+### Testing
+
+'''
+npm test
+'''
+
