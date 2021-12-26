@@ -8,19 +8,19 @@ describe("SuperSourceBrain", function(){
         superSourceBrain = new SuperSourceBrain();
       });
 
-    describe("has defined the folowing inputs", function() {
-        it("should have inputBAString method", function() {
+    describe("should have the input", function() {
+        it("inputBAString", function() {
             expect(typeof (superSourceBrain.inputBAString)).toBe("function")
         });
     });
 
-    describe("has defined the folowing outputs", function() {
-        it("should have outputSuperSourceName method", function() {
+    describe("should have the output", function() {
+        it("outputSuperSourceName", function() {
             expect(typeof (superSourceBrain.outputSuperSourceName)).toBe("function")
         });
     });
 
-    describe("with no panelists id on the inputBAString", function () {
+    describe("with no panelists id on inputBAString", function () {
         it("should return 'NOSOURCE' on the outputSuperSourceName", function() {
             superSourceBrain.inputBAString("");
             expect(superSourceBrain.outputSuperSourceName()).toEqual("NOSOURCE");
