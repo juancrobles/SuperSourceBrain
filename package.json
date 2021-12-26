@@ -1,0 +1,26 @@
+{
+  "name": "supersourcebrain",
+  "version": "0.0.1",
+  "description": "Isadora javascript user actor, SuperSourceBrain",
+  "main": "SuperSourceBrain.js",
+  "scripts": {
+    "test": "jasmine"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/juancrobles/SuperSourceBrain.git"
+  },
+  "keywords": [
+    "supersourcebrain",
+    "isadora"
+  ],
+  "author": "JCRJ",
+  "license": "GPL-3.0-or-later",
+  "bugs": {
+    "url": "https://github.com/juancrobles/SuperSourceBrain/issues"
+  },
+  "homepage": "https://github.com/juancrobles/SuperSourceBrain#readme",
+  "devDependencies": {
+    "jasmine": "^3.10.0"
+  }
+}
