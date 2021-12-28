@@ -30,6 +30,10 @@ describe("SuperSourceBrain", function(){
         it("outputSuperSourceUpdated", function() {
             expect(typeof (superSourceBrain.outputSuperSourceUpdated)).toBe("function")
         });
+
+        it("outputSearchPins", function() {
+            expect(typeof (superSourceBrain.outputSearchPins)).toBe("function")
+        });
     });
 
     describe("with invalid data", function () {
@@ -329,32 +333,31 @@ describe("SuperSourceBrain", function(){
             });
         });
 
-        xdescribe('flushed out as asnwerer', function() {
-            it('should return "NOSOURCE" on the ourputSourceName', () => {
-                superSourceBrain.inputHandsAPI("NONE\nNONE\nNONE");
+        describe('generate the pins for all panelists', function() {
+            it('should return a list of all pins of the panelists on the ourputSearchPins', () => {
+                superSourceBrain.inputHandsAPI("1254,1125\nNONE\nNONE");
+                superSourceBrain.inputSuccessAPI(1);
+
+                expect(superSourceBrain.outputSuperSourceName()).toEqual("12");
+                expect(superSourceBrain.outputSearchPins()).toEqual("1254\n1125");
+
+                superSourceBrain.inputHandsAPI("1254\n1125\nNONE");
+                superSourceBrain.inputSuccessAPI(1);
+    
+                expect(superSourceBrain.outputSuperSourceName()).toEqual("12");
+                expect(superSourceBrain.outputSearchPins()).toEqual("1254\n1125");
+
+                superSourceBrain.inputHandsAPI("NONE\n1254\n1125");
+                superSourceBrain.inputSuccessAPI(1);
+    
+                expect(superSourceBrain.outputSuperSourceName()).toEqual("2");
+                expect(superSourceBrain.outputSearchPins()).toEqual("1254\n1125");
+
+                superSourceBrain.inputHandsAPI("NONE\nNONE\n1254,1125");
                 superSourceBrain.inputSuccessAPI(1);
     
                 expect(superSourceBrain.outputSuperSourceName()).toEqual("NOSOURCE");
-
-                superSourceBrain.inputHandsAPI("1254\nNONE\nNONE");
-                superSourceBrain.inputSuccessAPI(1);
-
-                expect(superSourceBrain.outputSuperSourceName()).toEqual("1");
-
-                superSourceBrain.inputHandsAPI("NONE\n1254\nNONE");
-                superSourceBrain.inputSuccessAPI(1);
-    
-                expect(superSourceBrain.outputSuperSourceName()).toEqual("1");
-
-                superSourceBrain.inputHandsAPI("NONE\nNONE\n1254");
-                superSourceBrain.inputSuccessAPI(1);
-    
-                expect(superSourceBrain.outputSuperSourceName()).toEqual("1");
-
-                superSourceBrain.inputHandsAPI("NONE\nNONE\nNONE");
-                superSourceBrain.inputSuccessAPI(1);
-    
-                expect(superSourceBrain.outputSuperSourceName()).toEqual("NOSOURCE");
+                expect(superSourceBrain.outputSearchPins()).toEqual("1254\n1125");
             });
         });
     })

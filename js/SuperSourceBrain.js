@@ -16,7 +16,8 @@ SuperSourceBrain.prototype.totalPanelists = 0;
 SuperSourceBrain.prototype.visiblePanelists = 0;
 SuperSourceBrain.prototype.invisiblePanelists = 0;
 SuperSourceBrain.prototype.currentPanelist = -1;
- 
+SuperSourceBrain.prototype.searchPins = [];
+
 /**
  * Define the input HandsAPI
  * @param {*} data 
@@ -61,6 +62,9 @@ SuperSourceBrain.prototype.outputSuperSourceName = function() {
 
 SuperSourceBrain.prototype.outputSuperSourceUpdated = function() {
     return this.superSourceUpdated;
+}
+SuperSourceBrain.prototype.outputSearchPins = function() {
+    return this.searchPins.join('\n');
 }
  
 SuperSourceBrain.prototype.updateStatus = function() {
@@ -127,6 +131,7 @@ SuperSourceBrain.prototype.parseData = function() {
     this.invisiblePanelists = 0;
     this.currentPanelist = -1;
     this.totalPanelists = 0;
+    this.searchPins = [];
 
     // evaluate each item on the array
     for( i = 0; i < dataArray.length; i++) {
@@ -142,11 +147,13 @@ SuperSourceBrain.prototype.parseData = function() {
                     // no valid pin
                 } else {
                     // test if we are not the previous panelists and increase panelist count
-                    if(i < 2)
+                    if(i < 2) {
                         this.visiblePanelists++;
-                    else
+                    } else {
                         this.invisiblePanelists++;
-                        
+                    }
+                    
+                    this.searchPins.push(panelistsArray[j]);
                     this.totalPanelists++;
                 }
             }
@@ -157,11 +164,13 @@ SuperSourceBrain.prototype.parseData = function() {
                 // no valid pin
             } else {
                 // test if we are not the previous panelists and increase panelist count
-                if(i < 2)
+                if(i < 2) {
                     this.visiblePanelists++;
-                else
+                } else {
                     this.invisiblePanelists++;
+                }
                 
+                this.searchPins.push(dataArray[i]);
                 this.totalPanelists++;
 
                 // assign current panelist if we have one
