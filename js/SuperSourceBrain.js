@@ -42,6 +42,11 @@ SuperSourceBrain.prototype.inputSuccessAPI = function(result) {
         this.updateStatus();
     }
 }
+
+SuperSourceBrain.prototype.inputMaxBoxes = function(value) {
+    if(this.maxBoxes !== value)
+        this.maxBoxes = value;
+}
  
 /**
  * Define the output SuperSourceName

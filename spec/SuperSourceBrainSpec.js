@@ -16,6 +16,10 @@ describe("SuperSourceBrain", function(){
         it("inputSuccessAPI", function() {
             expect(typeof (superSourceBrain.inputSuccessAPI)).toBe("function")
         });
+
+        it("inputMaxBoxes", function() {
+            expect(typeof (superSourceBrain.inputMaxBoxes)).toBe("function")
+        });
     });
 
     describe("should have the output", function() {
