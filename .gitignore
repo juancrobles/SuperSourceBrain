@@ -105,3 +105,7 @@ dist
 
 # MACOS files
 .DS_*
+
+# isadora
+
+*_AS_*.izz
