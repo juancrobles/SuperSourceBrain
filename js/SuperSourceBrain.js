@@ -12,11 +12,10 @@ SuperSourceBrain.prototype.apiSuccess = false;
 SuperSourceBrain.prototype.superSourceName = "NOSOURCE";
 SuperSourceBrain.prototype.superSourceUpdated = false;
 SuperSourceBrain.prototype.maxBoxes = 4;
-// DEBUGING DATA
+SuperSourceBrain.prototype.totalPanelists = 0;
 SuperSourceBrain.prototype.visiblePanelists = 0;
 SuperSourceBrain.prototype.invisiblePanelists = 0;
 SuperSourceBrain.prototype.currentPanelist = -1;
-
  
 /**
  * Define the input HandsAPI
@@ -68,22 +67,15 @@ SuperSourceBrain.prototype.updateStatus = function() {
     // console.log("updateStatus");
 
     // parsing received data in array format
-    // [
-    //  0: currentPanelist, 
-    //  1: visible panelists, 
-    //  2: invisible panelists
-    // ]
-    var panelistCounts = this.parseData();
+    this.parseData();
 
     // create local variables to make clearer each operation
-    var totalPanelists = panelistCounts[1] + panelistCounts[2];
-    var startSubstring = panelistCounts[2];
-    // console.log("total panelists: ", totalPanelists, "start substring: ", startSubstring);
-
+    var startSubstring = this.invisiblePanelists;
+ 
     // build array of boxes
     var boxCount = 1;
     var boxesArray = [];
-    for( i = 0; i < totalPanelists; i++) {
+    for( i = 0; i < this.totalPanelists; i++) {
         // reset box count if we have more panelists than boxes
         if(boxCount > this.maxBoxes)
             boxCount = 1;
@@ -98,13 +90,13 @@ SuperSourceBrain.prototype.updateStatus = function() {
     var boxesString = boxesArray.join('');
  
     // test if we have any panelist 
-    if(totalPanelists !== 0 ) {
+    if(this.totalPanelists !== 0 ) {
         // at least we have one panelist
         // set result super soruce name to NOSOURCE
         var ssName = "NOSOURCE";
 
         // test if we have enough panelists to use all the boxes availables
-        if((startSubstring + this.maxBoxes) > totalPanelists) {
+        if((startSubstring + this.maxBoxes) > this.totalPanelists) {
             // not enough panelists fot the boxes available
             ssName = boxesString.substring(startSubstring);
         } else {
@@ -130,10 +122,11 @@ SuperSourceBrain.prototype.parseData = function() {
     // split data into an array
     var dataArray = this.apiData.match(/[^\r\n]+/g);
 
-    // delaring local variables to a known state
+    // seting local variables to a known state
     this.visiblePanelists = 0;
     this.invisiblePanelists = 0;
     this.currentPanelist = -1;
+    this.totalPanelists = 0;
 
     // evaluate each item on the array
     for( i = 0; i < dataArray.length; i++) {
@@ -153,6 +146,8 @@ SuperSourceBrain.prototype.parseData = function() {
                         this.visiblePanelists++;
                     else
                         this.invisiblePanelists++;
+                        
+                    this.totalPanelists++;
                 }
             }
         } else {
@@ -167,15 +162,15 @@ SuperSourceBrain.prototype.parseData = function() {
                 else
                     this.invisiblePanelists++;
                 
+                this.totalPanelists++;
+
                 // assign current panelist if we have one
-                if(i == 1)
-                    this.currentPanelist = i;
+                if(i === 1) {
+                    this.currentPanelist = this.totalPanelists - 1;
+                }
             }
         }
     }
-
-    // return results
-    return [this.currentPanelist, this.visiblePanelists, this.invisiblePanelists];
 }
  
 

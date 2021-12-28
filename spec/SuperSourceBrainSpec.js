@@ -101,6 +101,13 @@ describe("SuperSourceBrain", function(){
     
                 expect(superSourceBrain.outputSuperSourceName()).toEqual('1');
             });
+
+            it('should have "0" as index on current panelist index', () => {
+                superSourceBrain.inputHandsAPI("NONE\n1254\nNONE");
+                superSourceBrain.inputSuccessAPI(1);
+
+                expect(superSourceBrain.currentPanelist).toEqual(0);
+            });
         });
 
         describe("and failure on the API request", function() {
@@ -121,6 +128,12 @@ describe("SuperSourceBrain", function(){
                 superSourceBrain.inputSuccessAPI(1);
     
                 expect(superSourceBrain.outputSuperSourceName()).toEqual('NOSOURCE');
+            });
+            it('should have "-1" as index on current panelist index', () => {
+                superSourceBrain.inputHandsAPI("NONE\nNONE\n1254");
+                superSourceBrain.inputSuccessAPI(1);
+
+                expect(superSourceBrain.currentPanelist).toEqual(-1);
             });
         });
 
@@ -147,6 +160,18 @@ describe("SuperSourceBrain", function(){
                 superSourceBrain.inputSuccessAPI(1);
     
                 expect(superSourceBrain.outputSuperSourceName()).toEqual("1");
+            });
+            it('should have "-1" as index on current panelist index', () => {
+                superSourceBrain.inputHandsAPI("NONE\nNONE\nNONE");
+                superSourceBrain.inputSuccessAPI(1);
+    
+                expect(superSourceBrain.outputSuperSourceName()).toEqual("NOSOURCE");
+
+                superSourceBrain.inputHandsAPI("1254\nNONE\nNONE");
+                superSourceBrain.inputSuccessAPI(1);
+
+                expect(superSourceBrain.outputSuperSourceName()).toEqual("1");
+                expect(superSourceBrain.currentPanelist).toEqual(-1);
             });
         });
         describe('changed to current asnwerer', function() {
