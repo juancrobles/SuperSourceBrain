@@ -12,7 +12,11 @@ SuperSourceBrain.prototype.apiSuccess = false;
 SuperSourceBrain.prototype.superSourceName = "NOSOURCE";
 SuperSourceBrain.prototype.superSourceUpdated = false;
 SuperSourceBrain.prototype.maxBoxes = 4;
- 
+// DEBUGING DATA
+SuperSourceBrain.prototype.visiblePanelists = 0;
+SuperSourceBrain.prototype.invisiblePanelists = 0;
+SuperSourceBrain.prototype.currentPanelist = -1;
+
  
 /**
  * Define the input HandsAPI
@@ -127,9 +131,9 @@ SuperSourceBrain.prototype.parseData = function() {
     var dataArray = this.apiData.match(/[^\r\n]+/g);
 
     // delaring local variables to a known state
-    var visiblePanelists = 0;
-    var invisiblePanelists = 0;
-    var currentPanelist = -1;
+    this.visiblePanelists = 0;
+    this.invisiblePanelists = 0;
+    this.currentPanelist = -1;
 
     // evaluate each item on the array
     for( i = 0; i < dataArray.length; i++) {
@@ -146,9 +150,9 @@ SuperSourceBrain.prototype.parseData = function() {
                 } else {
                     // test if we are not the previous panelists and increase panelist count
                     if(i < 2)
-                        visiblePanelists++;
+                        this.visiblePanelists++;
                     else
-                        invisiblePanelists++;
+                        this.invisiblePanelists++;
                 }
             }
         } else {
@@ -159,19 +163,19 @@ SuperSourceBrain.prototype.parseData = function() {
             } else {
                 // test if we are not the previous panelists and increase panelist count
                 if(i < 2)
-                    visiblePanelists++;
+                    this.visiblePanelists++;
                 else
-                    invisiblePanelists++;
+                    this.invisiblePanelists++;
                 
                 // assign current panelist if we have one
                 if(i == 1)
-                    currentPanelist = i;
+                    this.currentPanelist = i;
             }
         }
     }
 
     // return results
-    return [currentPanelist, visiblePanelists, invisiblePanelists];
+    return [this.currentPanelist, this.visiblePanelists, this.invisiblePanelists];
 }
  
 
