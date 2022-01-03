@@ -2,7 +2,7 @@
 /**
  * Define the UserActor container 
  */
-function SuperSourceBrain() {}
+ function SuperSourceBrain() {}
 
  /**
   * Define all internal variables to a known value
@@ -230,6 +230,39 @@ SuperSourceBrain.prototype.parseData = function() {
 }
  
 
-// this line is necesary for running the tests and 
-// should not be copied to the isadora javascript actor
-module.exports = SuperSourceBrain;
+// here we create an instance of our container
+var superSourceBrain = new SuperSourceBrain(); 
+
+function main()
+{
+	// iz_input 1 "HandsAPI"
+	superSourceBrain.inputHandsAPI(arguments[0]);
+
+	// iz_input 2 "SuccessAPI"
+	superSourceBrain.inputSuccessAPI(arguments[1]);
+
+	// iz_input 3 "Max Boxes"
+	superSourceBrain.inputMaxBoxes(arguments[2]);
+
+	// we return our real outpus followed by the "DEBUG OUTPUTS" string
+	// and any variable that help to trace the funcionality of the actor
+	return [
+		// iz_output 1 "Super Source Name"
+		superSourceBrain.outputSuperSourceName(),
+		// iz_output 2 "Super Source Updated"
+		superSourceBrain.outputSuperSourceUpdated(),
+		// iz_output 3 "Search Pins"
+		superSourceBrain.outputSearchPins(),
+
+		// iz_output 4 "DEBUG"
+		"DEBUG OUTPUTS",
+		// iz_output 5 "Total panelists"
+		superSourceBrain.totalPanelists,
+		// iz_output 6 "Visible panelists"
+		superSourceBrain.visiblePanelists,
+		// iz_output 7 "Invisible panelists"
+		superSourceBrain.invisiblePanelists,
+		// iz_output 8 "current panelist index"
+		superSourceBrain.currentPanelist
+	];
+}
